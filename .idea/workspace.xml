@@ -5,9 +5,46 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e1abaae-99f0-4eb7-a87f-d953f67ae2a6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/faiss_index/index.faiss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/faiss_index/index.pkl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/dash.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/dashboard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/fa1.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/faq.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/register.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/update_consultation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Assignment.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Assignment.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatbot.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatbot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatbot2.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatbot2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatbot3usingllama2formollama.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatbot3usingllama2formollama.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatbot4offline_working.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatbot4offline_working.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evaluate_different_modules.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluate_different_modules.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/faq.txt" beforeDir="false" afterPath="$PROJECT_DIR$/faq.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fine_tuning/finetune_lora.py" beforeDir="false" afterPath="$PROJECT_DIR$/fine_tuning/finetune_lora.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fine_tuning/lora_flan_t5_small/checkpoint-42/adapter_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/fine_tuning/lora_flan_t5_small/checkpoint-42/adapter_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fine_tuning/lora_flan_t5_small/checkpoint-42/trainer_state.json" beforeDir="false" afterPath="$PROJECT_DIR$/fine_tuning/lora_flan_t5_small/checkpoint-42/trainer_state.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fine_tuning/lora_flan_t5_small/finetuned/adapter_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/fine_tuning/lora_flan_t5_small/finetuned/adapter_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fine_tuning/lora_flan_t5_small/finetuned/special_tokens_map.json" beforeDir="false" afterPath="$PROJECT_DIR$/fine_tuning/lora_flan_t5_small/finetuned/special_tokens_map.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fine_tuning/lora_flan_t5_small/finetuned/tokenizer_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/fine_tuning/lora_flan_t5_small/finetuned/tokenizer_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fine_tuning/medical_dataset/dataset_info.json" beforeDir="false" afterPath="$PROJECT_DIR$/fine_tuning/medical_dataset/dataset_info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fine_tuning/medical_dataset/state.json" beforeDir="false" afterPath="$PROJECT_DIR$/fine_tuning/medical_dataset/state.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fine_tuning/prepare_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/fine_tuning/prepare_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fine_tuning/train.json" beforeDir="false" afterPath="$PROJECT_DIR$/fine_tuning/train.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_file.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/query_dataset.csv" beforeDir="false" afterPath="$PROJECT_DIR$/query_dataset.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/users.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vector_creator.py" beforeDir="false" afterPath="$PROJECT_DIR$/vector_creator.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +87,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Python.app.executor": "Run",
     "Python.app2.executor": "Run",
     "Python.chatbot4offline_working.executor": "Run",
     "Python.evaluate_different_modules.executor": "Run",

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docify Online</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <header class="bg-blue-600 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Docify Online</h1>
+            <nav>
+                <a href="{{ url_for('home') }}" class="px-2">Home</a>
+                <a href="{{ url_for('faq') }}" class="px-2">FAQ</a>
+                {% if 'user_id' in session %}
+                    <a href="{{ url_for('dashboard') }}" class="px-2">Dashboard</a>
+                    <a href="{{ url_for('logout') }}" class="px-2">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="px-2">Login</a>
+                    <a href="{{ url_for('register') }}" class="px-2">Register</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+    <main class="container mx-auto p-4">
+        <h2 class="text-3xl font-semibold mb-4">Welcome to Docify Online</h2>
+        <p class="mb-4">Your trusted platform for medical consultations and certificates.</p>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="bg-{% if category == 'success' %}green{% else %}red{% endif %}-100 border-{% if category == 'success' %}green{% else %}red{% endif %}-400 text-{% if category == 'success' %}green{% else %}red{% endif %}-700 px-4 py-3 rounded mb-4">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <p>Explore our services or ask questions via our chatbot.</p>
+    </main>
+</body>
+</html>

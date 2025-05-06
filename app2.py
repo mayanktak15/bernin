@@ -5,10 +5,9 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
-from evaluate_different_modules import process_query5,process_query2,process_query4,process_query,process_query3
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'aditya'
+app.config['SECRET_KEY'] = 'your-secret-key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///docify.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -49,7 +48,6 @@ def export_users_to_csv():
                 'name': user.name,
                 'phone': user.phone,
                 'email': user.email
-
             })
 
 
@@ -154,17 +152,11 @@ def faq():
 # Updated Chatbot Route
 @app.route('/chatbot', methods=['POST'])
 def chatbot():
-
     data = request.json
-    query = data.get('message')
-    print("user query=",query)
-    if not query:
+    user_message = data.get('message')
+    if not user_message:
         return jsonify({"reply": "Please provide a message."}), 400
-    try:
-        with open("query_dataset.csv", "a") as file:
-            file.write(query + "\n")
-    except Exception as e:
-        print(f"Error while writing to file: {e}")
+
     # Get latest symptoms from user's consultations
     if 'user_id' in session:
         latest_consultation = Consultation.query.filter_by(user_id=session['user_id']).order_by(
@@ -173,24 +165,18 @@ def chatbot():
     else:
         symptoms = None
 
-
     try:
-
-        #if you have chat bot api get response from here
-        #response = requests.post(
-         #   'http://127.0.0.1:5003/chatbot',
-          #  json={"message": user_message, "symptoms": symptoms}
-        #)
-        #we now have integrated chat bot in this flask so we will call like
-        response = process_query5(query, symptoms)
+        # Forward request to chatbot service
+        response = requests.post(
+            'http://127.0.0.1:5003/chatbot',
+            json={"message": user_message, "symptoms": symptoms}
+        )
         print(response)
-        return jsonify({"reply": response})
-        #use below line while taking in json object
-        """response_data = response.json()
-        return jsonify(response_data)"""
+        response_data = response.json()
+        return jsonify(response_data)
     except requests.RequestException:
         return jsonify({"reply": "Error connecting to chatbot service."}), 500
 
 
 if __name__ == '__main__':
-    app.run(debug=True,port=5001)
+    app.run(debug=True, port=5000)

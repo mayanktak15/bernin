@@ -18,7 +18,7 @@ load_dotenv()  # load variables from .env file
 
 api_key = os.getenv("API_KEY")  # get API key
 
-genai.configure(api_key=api_key)
+genai.configure(api_key='AIzaSyCoYLR9JQBU5jUKl40aRbaWJCEc2Zr0xt0')
 
 
 # Suppress TensorFlow and duplicate library issues
