@@ -1,0 +1,195 @@
+[
+  {
+    "question": "What should I do if I have a fever?",
+    "answer": "Stay hydrated, rest, and take paracetamol if necessary. If fever persists for more than 3 days, consult a doctor. (Recommended doctor: General Physician)"
+  },
+  {
+    "question": "How do I book an online doctor consultation on Docify?",
+    "answer": "Visit the 'Consult a Doctor' page, fill in your symptoms, select a specialty, and book an available time slot."
+  },
+  {
+    "question": "Can I get a medical certificate online?",
+    "answer": "Yes, fill out the medical certificate form on Docify with valid symptoms and upload a valid ID. A doctor will review and issue the certificate."
+  },
+  {
+    "question": "What should I do if I have a sore throat?",
+    "answer": "Gargle with warm salt water, stay hydrated, and avoid cold drinks. Consult an ENT specialist if it persists beyond 5 days."
+  },
+  {
+    "question": "What is the validity of an online medical certificate?",
+    "answer": "Most online medical certificates are valid for 1 to 7 days, depending on the doctor's assessment."
+  },
+  {
+    "question": "Do I need a prescription to buy antibiotics?",
+    "answer": "Yes, antibiotics should only be taken with a valid doctor's prescription. Self-medication is harmful."
+  },
+  {
+    "question": "I need rest for 2 days due to body pain. Can I get a certificate?",
+    "answer": "Yes, submit your symptoms in the medical certificate form and select your desired duration. A doctor will review and issue it if appropriate."
+  },
+  {
+    "question": "What should I do in case of a skin rash?",
+    "answer": "Avoid scratching, use soothing lotion, and consult a dermatologist if the rash spreads or lasts longer than 3 days."
+  },
+  {
+    "question": "Can I consult a gynecologist online?",
+    "answer": "Yes, Docify allows confidential gynecologist consultations through video or chat. Appointments are private and secure."
+  },
+  {
+    "question": "How long does it take to get a medical certificate?",
+    "answer": "Once submitted, most certificates are processed and delivered digitally within 1 to 4 hours."
+  },
+  {
+    "question": "I have back pain. Which doctor should I consult?",
+    "answer": "For general back pain, consult a General Physician. For chronic or severe pain, consider an Orthopedic specialist."
+  },
+  {
+    "question": "How do I update incorrect details in the submitted form?",
+    "answer": "Login to your account, go to 'My Submissions', and click 'Edit' next to the form to update details."
+  },
+  {
+    "question": "Is my information safe on Docify?",
+    "answer": "Yes, all data is encrypted and only accessible to you and the assigned medical professional."
+  },
+  {
+    "question": "I have frequent headaches. What can I do?",
+    "answer": "Stay hydrated, manage screen time, and track triggers. If headaches persist, consult a Neurologist."
+  },
+  {
+    "question": "What should I do if I feel dizzy often?",
+    "answer": "Sit down immediately, hydrate, and rest. If dizziness continues, consult a General Physician or ENT."
+  },
+  {
+    "question": "Can I get a fitness certificate for joining a gym?",
+    "answer": "Yes, book a consultation with a doctor and mention 'fitness clearance' in your reason."
+  },
+  {
+    "question": "What if I miss my consultation slot?",
+    "answer": "You can reschedule your consultation from the dashboard or request support through live chat."
+  },
+  {
+    "question": "Do online doctors on Docify issue prescriptions?",
+    "answer": "Yes, after your consultation, a valid digital prescription is sent to your registered email and dashboard."
+  },
+  {
+    "question": "Can I consult a pediatrician for my child online?",
+    "answer": "Yes, Docify offers pediatric consultations for children under 18 with parental consent."
+  },
+  {
+    "question": "What documents are required for a medical certificate?",
+    "answer": "Typically, a valid government ID and symptom declaration are required. Doctors may request more if needed."
+  },
+  {
+    "question": "What should I do if I have loose motion or diarrhea?",
+    "answer": "Stay hydrated with ORS. Eat light food. If symptoms persist, consult a Gastroenterologist."
+  },
+  {
+    "question": "Can I get a certificate for sick leave due to stress?",
+    "answer": "Yes, stress-related issues are valid. Book a consultation with a Psychiatrist or General Physician."
+  },
+  {
+    "question": "I have cold and body ache. Do I need to visit physically?",
+    "answer": "No, most common symptoms can be diagnosed online. You can consult a doctor from home via Docify."
+  },
+  {
+    "question": "How much does a doctor consultation cost?",
+    "answer": "Prices vary by specialty. General consultations typically start from ₹199. Check the pricing on the consultation page."
+  },
+  {
+    "question": "Can I use Docify from outside India?",
+    "answer": "Yes, but medical certificates issued are valid within India only. Consultations are accessible globally."
+  },
+  {
+    "question": "Can I talk to the doctor on call instead of chat?",
+    "answer": "Yes, you can choose between voice or video call options while booking the consultation."
+  },
+  {
+    "question": "I need a certificate for COVID leave. What do I do?",
+    "answer": "Select 'COVID symptoms' in the certificate form and upload test results if available. A doctor will review your case."
+  },
+  {
+    "question": "How long are prescriptions from online doctors valid?",
+    "answer": "Prescriptions are generally valid for 7 to 30 days depending on the medication and the doctor's discretion."
+  },
+  {
+    "question": "I’m experiencing hair loss. Who should I consult?",
+    "answer": "Consult a Dermatologist to check for causes like stress, nutrition, or medical conditions."
+  },
+  {
+    "question": "Can I get a second opinion on Docify?",
+    "answer": "Yes, you can consult multiple doctors for a second opinion. Mention previous treatment in the form."
+  },
+  {
+    "question": "Can I cancel a consultation?",
+    "answer": "Yes, cancellations are allowed up to 1 hour before the consultation. Check refund policy for details."
+  },
+  {
+    "question": "What’s the minimum age for online consultation?",
+    "answer": "There is no minimum age, but minors need parental supervision or consent."
+  },
+  {
+    "question": "I have pain while urinating. What should I do?",
+    "answer": "Drink plenty of water and avoid spicy food. Consult a Urologist if symptoms persist."
+  },
+  {
+    "question": "Is it possible to download my medical certificate?",
+    "answer": "Yes, you can download it from your dashboard after approval by the doctor."
+  },
+  {
+    "question": "Can I get a certificate for travel fitness?",
+    "answer": "Yes, select 'Travel Fitness Certificate' from the dropdown while submitting the form."
+  },
+  {
+    "question": "What if I enter the wrong email or contact number?",
+    "answer": "You can update these from your account settings or contact support for assistance."
+  },
+  {
+    "question": "I feel anxious all the time. Can I talk to a mental health professional?",
+    "answer": "Yes, Docify offers confidential consultations with certified Psychologists and Psychiatrists."
+  },
+  {
+    "question": "Is video consultation necessary for a certificate?",
+    "answer": "Not always. Depending on the case, some certificates can be issued via chat consultation."
+  },
+  {
+    "question": "Can I access my old prescriptions?",
+    "answer": "Yes, all prescriptions are stored in your account history for future reference."
+  },
+  {
+    "question": "What is a general physician consultation good for?",
+    "answer": "It’s ideal for fever, cold, cough, fatigue, weakness, and most day-to-day issues."
+  },
+  {
+    "question": "How long does each consultation last?",
+    "answer": "Consultations typically last between 10 to 20 minutes depending on the case."
+  },
+  {
+    "question": "Can I use insurance for online consultations?",
+    "answer": "Some insurance providers may cover teleconsultation. Please check with your provider."
+  },
+  {
+    "question": "I need a certificate for attending college. What do I choose?",
+    "answer": "Select 'Educational Leave Certificate' and mention your reason in the form."
+  },
+  {
+    "question": "What is the refund policy for consultations?",
+    "answer": "Refunds are available if you cancel 1 hour before or if the doctor fails to attend."
+  },
+  {
+    "question": "Is Docify available 24x7?",
+    "answer": "Yes, you can book consultations anytime. Doctors are available based on slots."
+  },
+  {
+    "question": "What should I do for acidity or gas?",
+    "answer": "Eat on time, avoid spicy food, and consult a General Physician or Gastroenterologist if symptoms repeat often."
+  },
+  {
+    "question": "Can I get an invoice for my consultation?",
+    "answer": "Yes, an invoice is generated automatically and can be downloaded from your dashboard."
+  },
+  {
+    "question": "Can I resubmit a form with corrections?",
+    "answer": "Yes, go to 'My Submissions' → 'Edit' → Make changes → Save. The updated form will be reviewed again."
+  }
+
+]

@@ -1,0 +1,314 @@
+import os
+from flask import Flask, request, jsonify
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.vectorstores import FAISS
+from langchain_ollama import OllamaLLM
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain
+from langchain.chains import StuffDocumentsChain
+
+
+# Suppress TensorFlow and duplicate library issues
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+
+app = Flask(__name__)
+
+# ======== FAQ Dataset ========
+faq_data = """
+What is Docify Online?
+Docify Online is a platform for filling out medical certificates and consultation forms, with support from our chatbot.
+
+How do I submit a consultation form?
+Log in, go to the dashboard, and fill out the form with your symptoms. You can also update past submissions.
+
+Is my data secure?
+Yes, we use password hashing and store data securely in a database. User details are also exported to a CSV file.
+
+How can I contact support?
+You can reach our support team via the chatbot or email at support@docify.online.
+
+What should I include in the symptoms field?
+Describe your symptoms in detail, including duration, severity, and any relevant medical history.
+
+1. What is Docify?
+Docify is an online platform that allows users to consult certified doctors from the comfort of their home. Whether it's a minor health concern or the need for a medical certificate, Docify simplifies access to quality healthcare.
+
+2. How does Docify work?
+You simply visit the website, select your symptoms or medical issue, fill a quick form, and our system connects you with a relevant, licensed doctor. You receive a response and prescription or certificate, if applicable, within a few hours.
+
+3. How many doctors are available on Docify?
+Docify has a network of over 100 verified doctors across multiple specialties including general medicine, dermatology, ENT, gynecology, psychiatry, and more.
+
+4. Which doctor should I consult for my issue?
+Here’s a quick guide:
+
+Fever, cold, weakness, etc. – General Physician
+
+Skin rash, acne, itching – Dermatologist
+
+Menstrual issues, pregnancy queries – Gynecologist
+
+Throat pain, sinus, ear pain – ENT Specialist
+
+Mental health, anxiety, stress – Psychiatrist or Psychologist
+
+5. How do I fill the consultation form?
+Click on “Start Consultation” on the homepage. Fill your name, age, symptoms, duration of symptoms, and upload any reports if available. Ensure accuracy for a proper diagnosis.
+
+6. What is the response time after I submit the form?
+Most consultations are responded to within 30 minutes to 2 hours during working hours. For medical certificates, it can take up to 3 hours.
+
+7. Can I get a medical certificate from Docify?
+Yes, Docify offers valid medical certificates after a genuine consultation. These certificates are issued by licensed doctors and sent to your email in PDF format.
+
+8. Is the medical certificate legally valid?
+Absolutely. All certificates are signed and stamped by an MBBS-qualified doctor and are valid for workplaces, schools, and visa/travel purposes.
+
+9. Can I get a backdated medical certificate?
+Backdated certificates may be issued only if your symptoms and details justify it. The issuing doctor will make the final decision.
+
+10. Is my data and medical information safe on Docify?
+Yes. We strictly adhere to privacy norms. Your personal and health information is encrypted and shared only with the consulting doctor.
+
+11. Are there any consultation charges?
+Yes, a nominal fee is charged per consultation. The amount depends on the doctor’s specialty and nature of the request (e.g., general consultation vs. certificate issuance).
+
+12. Can I consult for someone else using my account?
+Yes, you can fill out the form on behalf of a family member or dependent. Just mention their name and age in the form.
+
+13. What if I don’t get a reply in time?
+You can contact our support team through the website’s chat feature or email us at support@docify.in for quick assistance.
+
+14. Is Docify available 24/7?
+You can submit a request any time, but doctor availability is highest between 9 AM – 9 PM (IST). Responses outside these hours might be slower.
+
+15. Do I need to install any app to use Docify?
+No app is required. Just open www.docify.in on your browser and start the consultation directly.
+**1. What should I do if I have a fever?**
+Stay hydrated, rest, and take paracetamol if necessary. If fever persists for more than 3 days, consult a doctor. (Recommended doctor: General Physician)
+
+**2. How do I book an online doctor consultation on Docify?**
+Visit the 'Consult a Doctor' page, fill in your symptoms, select a specialty, and book an available time slot.
+
+**3. Can I get a medical certificate online?**
+Yes, fill out the medical certificate form on Docify with valid symptoms and upload a valid ID. A doctor will review and issue the certificate.
+
+**4. What should I do if I have a sore throat?**
+Gargle with warm salt water, stay hydrated, and avoid cold drinks. Consult an ENT specialist if it persists beyond 5 days.
+
+**5. What is the validity of an online medical certificate?**
+Most online medical certificates are valid for 1 to 7 days, depending on the doctor's assessment.
+
+**6. Do I need a prescription to buy antibiotics?**
+Yes, antibiotics should only be taken with a valid doctor's prescription. Self-medication is harmful.
+
+**7. I need rest for 2 days due to body pain. Can I get a certificate?**
+Yes, submit your symptoms in the medical certificate form and select your desired duration. A doctor will review and issue it if appropriate.
+
+**8. What should I do in case of a skin rash?**
+Avoid scratching, use soothing lotion, and consult a dermatologist if the rash spreads or lasts longer than 3 days.
+
+**9. Can I consult a gynecologist online?**
+Yes, Docify allows confidential gynecologist consultations through video or chat. Appointments are private and secure.
+
+**10. How long does it take to get a medical certificate?**
+Once submitted, most certificates are processed and delivered digitally within 1 to 4 hours.
+
+**11. I have back pain. Which doctor should I consult?**
+For general back pain, consult a General Physician. For chronic or severe pain, consider an Orthopedic specialist.
+
+**12. How do I update incorrect details in the submitted form?**
+Login to your account, go to 'My Submissions', and click 'Edit' next to the form to update details.
+
+**13. Is my information safe on Docify?**
+Yes, all data is encrypted and only accessible to you and the assigned medical professional.
+
+**14. I have frequent headaches. What can I do?**
+Stay hydrated, manage screen time, and track triggers. If headaches persist, consult a Neurologist.
+
+**15. What should I do if I feel dizzy often?**
+Sit down immediately, hydrate, and rest. If dizziness continues, consult a General Physician or ENT.
+
+**16. Can I get a fitness certificate for joining a gym?**
+Yes, book a consultation with a doctor and mention 'fitness clearance' in your reason.
+
+**17. What if I miss my consultation slot?**
+You can reschedule your consultation from the dashboard or request support through live chat.
+
+**18. Do online doctors on Docify issue prescriptions?**
+Yes, after your consultation, a valid digital prescription is sent to your registered email and dashboard.
+
+**19. Can I consult a pediatrician for my child online?**
+Yes, Docify offers pediatric consultations for children under 18 with parental consent.
+
+**20. What documents are required for a medical certificate?**
+Typically, a valid government ID and symptom declaration are required. Doctors may request more if needed.
+
+**21. What should I do if I have loose motion or diarrhea?**
+Stay hydrated with ORS. Eat light food. If symptoms persist, consult a Gastroenterologist.
+
+**22. Can I get a certificate for sick leave due to stress?**
+Yes, stress-related issues are valid. Book a consultation with a Psychiatrist or General Physician.
+
+**23. I have cold and body ache. Do I need to visit physically?**
+No, most common symptoms can be diagnosed online. You can consult a doctor from home via Docify.
+
+**24. How much does a doctor consultation cost?**
+Prices vary by specialty. General consultations typically start from ₹199. Check the pricing on the consultation page.
+
+**25. Can I use Docify from outside India?**
+Yes, but medical certificates issued are valid within India only. Consultations are accessible globally.
+
+**26. Can I talk to the doctor on call instead of chat?**
+Yes, you can choose between voice or video call options while booking the consultation.
+
+**27. I need a certificate for COVID leave. What do I do?**
+Select 'COVID symptoms' in the certificate form and upload test results if available. A doctor will review your case.
+
+**28. How long are prescriptions from online doctors valid?**
+Prescriptions are generally valid for 7 to 30 days depending on the medication and the doctor's discretion.
+
+**29. I’m experiencing hair loss. Who should I consult?**
+Consult a Dermatologist to check for causes like stress, nutrition, or medical conditions.
+
+**30. Can I get a second opinion on Docify?**
+Yes, you can consult multiple doctors for a second opinion. Mention previous treatment in the form.
+
+**31. Can I cancel a consultation?**
+Yes, cancellations are allowed up to 1 hour before the consultation. Check refund policy for details.
+
+**32. What’s the minimum age for online consultation?**
+There is no minimum age, but minors need parental supervision or consent.
+
+**33. I have pain while urinating. What should I do?**
+Drink plenty of water and avoid spicy food. Consult a Urologist if symptoms persist.
+
+**34. Is it possible to download my medical certificate?**
+Yes, you can download it from your dashboard after approval by the doctor.
+
+**35. Can I get a certificate for travel fitness?**
+Yes, select 'Travel Fitness Certificate' from the dropdown while submitting the form.
+
+**36. What if I enter the wrong email or contact number?**
+You can update these from your account settings or contact support for assistance.
+
+**37. I feel anxious all the time. Can I talk to a mental health professional?**
+Yes, Docify offers confidential consultations with certified Psychologists and Psychiatrists.
+
+**38. Is video consultation necessary for a certificate?**
+Not always. Depending on the case, some certificates can be issued via chat consultation.
+
+**39. Can I access my old prescriptions?**
+Yes, all prescriptions are stored in your account history for future reference.
+
+**40. What is a general physician consultation good for?**
+It’s ideal for fever, cold, cough, fatigue, weakness, and most day-to-day issues.
+
+**41. How long does each consultation last?**
+Consultations typically last between 10 to 20 minutes depending on the case.
+
+**42. Can I use insurance for online consultations?**
+Some insurance providers may cover teleconsultation. Please check with your provider.
+
+**43. I need a certificate for attending college. What do I choose?**
+Select 'Educational Leave Certificate' and mention your reason in the form.
+
+**44. What is the refund policy for consultations?**
+Refunds are available if you cancel 1 hour before or if the doctor fails to attend.
+
+**45. Is Docify available 24x7?**
+Yes, you can book consultations anytime. Doctors are available based on slots.
+
+**46. What should I do for acidity or gas?**
+Eat on time, avoid spicy food, and consult a General Physician or Gastroenterologist if symptoms repeat often.
+
+**47. Can I get an invoice for my consultation?**
+Yes, an invoice is generated automatically and can be downloaded from your dashboard.
+
+**48. Can I resubmit a form with corrections?**
+Yes, go to 'My Submissions' → 'Edit' → Make changes → Save. The updated form will be reviewed again.
+
+
+"""
+
+# ======== Preprocess FAQ into Chunks ========
+def preprocess_faq_data(faq_text):
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=200, chunk_overlap=50)
+    return text_splitter.split_text(faq_text)
+
+faq_chunks = preprocess_faq_data(faq_data)
+
+# ======== Embeddings & VectorStore ========
+embedding_model = HuggingFaceEmbeddings(
+    model_name="sentence-transformers/all-MiniLM-L6-v2",
+    model_kwargs={"device": "cpu"}
+)
+
+if not os.path.exists("faiss_index"):
+    vector_store = FAISS.from_texts(faq_chunks, embedding_model)
+    vector_store.save_local("faiss_index")
+else:
+    vector_store = FAISS.load_local("faiss_index", embedding_model, allow_dangerous_deserialization=True)
+
+# ======== Retriever ========
+retriever = vector_store.as_retriever(search_kwargs={"k": 3})
+
+
+
+# ======== Query Processor ========
+def process_query(user_query, symptoms=None):
+    # Prepare the symptoms section if provided
+    symptoms_section = f"User Symptoms: {symptoms}\nIncorporate these symptoms into your response if relevant." if symptoms else ""
+
+    # Retrieve the top 3 relevant documents
+    top_docs = retriever.get_relevant_documents(user_query)[:3]
+
+    # Debug: Print the retrieved documents
+    result = ""
+    print("--- Retrieved Documents ---")
+    for i, doc in enumerate(top_docs):
+        doc_text = f"Doc {i + 1}: {doc.page_content}\n" + "-" * 50 + "\n"
+        print(doc_text)
+        result += doc_text
+
+    return result
+
+
+# ======== Flask API Route ========
+@app.route('/chatbot', methods=['POST'])
+def chatbot():
+    data = request.json
+    user_query = data.get('message')
+    symptoms = data.get('symptoms')
+
+    if not user_query:
+        return jsonify({"reply": "Please provide a query."}), 400
+
+    response = process_query(user_query, symptoms)
+    return jsonify({"reply": response})
+
+# ======== Manual Evaluation ========
+def manual_evaluation():
+    test_queries = [
+        {"query": "How do I manage a fever?", "symptoms": "Fever for 2 days, 101°F"},
+        {"query": "What is Docify Online?", "symptoms": None},
+        {"query": "What does a sore throat mean?", "symptoms": "Sore throat and cough"},
+        {"query": "How do I update my consultation?", "symptoms": None},
+        {"query": "What doctor should I see for a headache?", "symptoms": "Frequent headaches for a week"}
+    ]
+    print("Manual Evaluation Results:")
+    for test in test_queries:
+        response = process_query(test["query"], test["symptoms"])
+        print(f"\nQuery: {test['query']}")
+        if test["symptoms"]:
+            print(f"Symptoms: {test['symptoms']}")
+        print(f"Response: {response}")
+        print("-" * 50)
+
+# ======== Main Entrypoint ========
+if __name__ == '__main__':
+    # Comment this out in production
+    #manual_evaluation()
+    app.run(debug=True, port=5003)
