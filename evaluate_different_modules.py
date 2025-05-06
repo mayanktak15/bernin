@@ -13,8 +13,12 @@ from langchain_core.output_parsers import StrOutputParser
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import google.generativeai as genai
+from dotenv import load_dotenv
+load_dotenv()  # load variables from .env file
 
-genai.configure(api_key='AIzaSyCoYLR9JQBU5jUKl40aRbaWJCEc2Zr0xt0')
+api_key = os.getenv("API_KEY")  # get API key
+
+genai.configure(api_key=api_key)
 
 
 # Suppress TensorFlow and duplicate library issues

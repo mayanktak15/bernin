@@ -5,30 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e1abaae-99f0-4eb7-a87f-d953f67ae2a6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/evaluate_different_modules.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/faq.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/query_dataset.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vector_creator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chatbot.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatbot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chatbot2.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatbot2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chatbot3usingllama2formollama.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatbot3usingllama2formollama.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chatbot4offline_working.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatbot4offline_working.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/faiss_index/index.faiss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/faiss_index/index.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/instance/docify.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/docify.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dash.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/fa1.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/faq.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/register.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/update_consultation.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/users.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/evaluate_different_modules.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluate_different_modules.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
