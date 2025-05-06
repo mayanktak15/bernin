@@ -46,11 +46,11 @@ embedding_model = HuggingFaceEmbeddings(
     model_kwargs={"device": "cpu"}
 )
 
-if not os.path.exists("faiss_index"):
+if not os.path.exists("../upload_to_cloud/faiss_index"):
     vector_store = FAISS.from_texts(faq_chunks, embedding_model)
     vector_store.save_local("faiss_index")
 else:
-    vector_store = FAISS.load_local("faiss_index", embedding_model, allow_dangerous_deserialization=True)
+    vector_store = FAISS.load_local("../upload_to_cloud/faiss_index", embedding_model, allow_dangerous_deserialization=True)
 
 # ======== Retriever ========
 retriever = vector_store.as_retriever(search_kwargs={"k": 3})

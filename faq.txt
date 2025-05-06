@@ -1,21 +1,73 @@
-import os
-os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
-from flask import Flask, request, jsonify
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_community.vectorstores import FAISS
-from langchain_community.llms import HuggingFacePipeline
-from langchain.chains import RetrievalQA
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline
-from peft import PeftModel, PeftConfig
-import torch
 
-# Initialize Flask app
-app = Flask(__name__)
+What is Docify Online?
+Docify Online is a platform for filling out medical certificates and consultation forms, with support from our chatbot.
 
-# FAQ Dataset
-faq_data = """
+How do I submit a consultation form?
+Log in, go to the dashboard, and fill out the form with your symptoms. You can also update past submissions.
 
+Is my data secure?
+Yes, we use password hashing and store data securely in a database. User details are also exported to a CSV file.
+
+How can I contact support?
+You can reach our support team via the chatbot or email at support@docify.online.
+
+What should I include in the symptoms field?
+Describe your symptoms in detail, including duration, severity, and any relevant medical history.
+
+1. What is Docify?
+Docify is an online platform that allows users to consult certified doctors from the comfort of their home. Whether it's a minor health concern or the need for a medical certificate, Docify simplifies access to quality healthcare.
+
+2. How does Docify work?
+You simply visit the website, select your symptoms or medical issue, fill a quick form, and our system connects you with a relevant, licensed doctor. You receive a response and prescription or certificate, if applicable, within a few hours.
+
+3. How many doctors are available on Docify?
+Docify has a network of over 100 verified doctors across multiple specialties including general medicine, dermatology, ENT, gynecology, psychiatry, and more.
+
+4. Which doctor should I consult for my issue?
+Here’s a quick guide:
+
+Fever, cold, weakness, etc. – General Physician
+
+Skin rash, acne, itching – Dermatologist
+
+Menstrual issues, pregnancy queries – Gynecologist
+
+Throat pain, sinus, ear pain – ENT Specialist
+
+Mental health, anxiety, stress – Psychiatrist or Psychologist
+
+5. How do I fill the consultation form?
+Click on “Start Consultation” on the homepage. Fill your name, age, symptoms, duration of symptoms, and upload any reports if available. Ensure accuracy for a proper diagnosis.
+
+6. What is the response time after I submit the form?
+Most consultations are responded to within 30 minutes to 2 hours during working hours. For medical certificates, it can take up to 3 hours.
+
+7. Can I get a medical certificate from Docify?
+Yes, Docify offers valid medical certificates after a genuine consultation. These certificates are issued by licensed doctors and sent to your email in PDF format.
+
+8. Is the medical certificate legally valid?
+Absolutely. All certificates are signed and stamped by an MBBS-qualified doctor and are valid for workplaces, schools, and visa/travel purposes.
+
+9. Can I get a backdated medical certificate?
+Backdated certificates may be issued only if your symptoms and details justify it. The issuing doctor will make the final decision.
+
+10. Is my data and medical information safe on Docify?
+Yes. We strictly adhere to privacy norms. Your personal and health information is encrypted and shared only with the consulting doctor.
+
+11. Are there any consultation charges?
+Yes, a nominal fee is charged per consultation. The amount depends on the doctor’s specialty and nature of the request (e.g., general consultation vs. certificate issuance).
+
+12. Can I consult for someone else using my account?
+Yes, you can fill out the form on behalf of a family member or dependent. Just mention their name and age in the form.
+
+13. What if I don’t get a reply in time?
+You can contact our support team through the website’s chat feature or email us at support@docify.in for quick assistance.
+
+14. Is Docify available 24/7?
+You can submit a request any time, but doctor availability is highest between 9 AM – 9 PM (IST). Responses outside these hours might be slower.
+
+15. Do I need to install any app to use Docify?
+No app is required. Just open www.docify.in on your browser and start the consultation directly.
 **1. What should I do if I have a fever?**
 Stay hydrated, rest, and take paracetamol if necessary. If fever persists for more than 3 days, consult a doctor. (Recommended doctor: General Physician)
 
@@ -160,122 +212,3 @@ Yes, an invoice is generated automatically and can be downloaded from your dashb
 **48. Can I resubmit a form with corrections?**
 Yes, go to 'My Submissions' → 'Edit' → Make changes → Save. The updated form will be reviewed again.
 
-
-
-"""
-
-
-# Preprocess FAQ data
-def preprocess_faq_data(faq_text):
-    text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=200,
-        chunk_overlap=50,
-        length_function=len,
-    )
-    chunks = text_splitter.split_text(faq_text)
-    return chunks
-
-
-faq_chunks = preprocess_faq_data(faq_data)
-
-# Embedding and Vector Store
-embedding_model = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-MiniLM-L6-v2",
-    model_kwargs={'device': 'cpu'}
-)
-
-if not os.path.exists("../upload_to_cloud/faiss_index"):
-    vector_store = FAISS.from_texts(faq_chunks, embedding_model)
-    vector_store.save_local("faiss_index")
-else:
-    vector_store = FAISS.load_local("../upload_to_cloud/faiss_index", embedding_model, allow_dangerous_deserialization=True)
-
-# Load Fine-Tuned Model
-model_name = "google/flan-t5-small"
-finetuned_path = "fine_tuning/lora_flan_t5_small/finetuned"
-tokenizer = AutoTokenizer.from_pretrained(finetuned_path)
-base_model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
-model = PeftModel.from_pretrained(base_model, finetuned_path)
-text2text_pipeline = pipeline(
-    "text2text-generation",
-    model=model,
-    tokenizer=tokenizer,
-    max_length=200,
-    device=-1
-)
-
-llm = HuggingFacePipeline(pipeline=text2text_pipeline)
-
-# RAG Setup
-retriever = vector_store.as_retriever(search_kwargs={"k": 5})
-print(retriever.metadata)
-qa_chain = RetrievalQA.from_chain_type(
-    llm=llm,
-    chain_type="stuff",
-    retriever=retriever,
-    return_source_documents=True
-)
-
-
-# Process Query
-def process_query(user_query, symptoms=None):
-    context = qa_chain({"query": user_query})['result']
-    prompt = f"""
-    You are a medical chatbot for Docify Online. Answer the user's query in a structured, clear, and concise manner.
-    Use the following FAQ context to inform your response:
-    your role is to answer information about what to do in fever
-    {context}
-
-    User Query: {user_query}
-    """
-    if symptoms:
-        prompt += f"\nUser Symptoms: {symptoms}\nPlease incorporate the symptoms into your response if relevant."
-
-    prompt += """
-    understand the question and situation of a person then answer:
-    **Answer**: [Your answer here]
-    **Additional Info**: [Any relevant details or suggestions]
-    Do not speculate or provide unverified medical advice.
-    """
-
-    response = text2text_pipeline(prompt)[0]["generated_text"]
-    return response
-
-
-# Flask Route
-@app.route('/chatbot', methods=['POST'])
-def chatbot():
-    data = request.json
-    user_query = data.get('message')
-    symptoms = data.get('symptoms')
-    if not user_query:
-        return jsonify({"reply": "Please provide a query."}), 400
-
-    response = process_query(user_query, symptoms)
-    return jsonify({"reply": response})
-
-
-# Manual Evaluation (run separately or comment out after testing)
-def manual_evaluation():
-    test_queries = [
-        {"query": "How do I manage a fever?", "symptoms": "Fever for 2 days, 101°F"},
-        {"query": "What is Docify Online?", "symptoms": None},
-        {"query": "What does a sore throat mean?", "symptoms": "Sore throat and cough"},
-        {"query": "How do I update my consultation?", "symptoms": None},
-        {"query": "how can i get my certificat?","symptoms":None}
-    ]
-    print("Manual Evaluation Results:")
-    for test in test_queries:
-        response = process_query(test["query"], test["symptoms"])
-        print(f"\nQuery: {test['query']}")
-        if test["symptoms"]:
-            print(f"Symptoms: {test['symptoms']}")
-        print(f"Response: {response}")
-        print("-" * 50)
-
-
-if __name__ == '__main__':
-    # Run manual evaluation (comment out after testing)
-    #manual_evaluation()
-    print(retriever.metadata)
-    app.run(debug=True, port=5002)

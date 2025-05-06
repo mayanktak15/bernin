@@ -1,30 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1abaae-99f0-4eb7-a87f-d953f67ae2a6" name="Changes" comment="" />
+    <list default="true" id="9e1abaae-99f0-4eb7-a87f-d953f67ae2a6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/evaluate_different_modules.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/faq.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/query_dataset.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vector_creator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatbot.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatbot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatbot2.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatbot2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatbot3usingllama2formollama.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatbot3usingllama2formollama.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chatbot4offline_working.py" beforeDir="false" afterPath="$PROJECT_DIR$/chatbot4offline_working.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/faiss_index/index.faiss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/faiss_index/index.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/instance/docify.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/docify.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dash.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/fa1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/faq.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/register.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/update_consultation.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/users.csv" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "adiibaba239"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/adiibaba239/Bernin.git",
+    "accountId": "c1fecc0a-0160-4bc8-aeee-80551c5d99a2"
+  }
+}]]></component>
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 4
 }]]></component>
   <component name="ProjectId" id="2wid9lXN5FZZtPw5dpM3whVVn8v" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Python.app2.executor": "Run",
+    "Python.chatbot4offline_working.executor": "Run",
+    "Python.evaluate_different_modules.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main"
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/bernin/Assignment"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\bernin\Assignment" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -42,5 +101,8 @@
       <updated>1746528179690</updated>
     </task>
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
